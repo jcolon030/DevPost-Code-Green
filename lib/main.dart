@@ -39,17 +39,20 @@ class MyCustomFormState extends State<MyCustomForm> {
   //
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
-  final titleController = TextEditingController();
-  final title2Controller = TextEditingController();
+  final email = TextEditingController();
+  final phone = TextEditingController();
+  final gender = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  String data = "";
-  String data2 = "";
+  String user_email = "";
+  String user_phone = "";
+  String user_gender = "";
 
   void _getText() {
     setState(() {
-      data = titleController.text;
-      data2 = title2Controller.text;
+      user_email = email.text;
+      user_phone = phone.text;
+      user_gender = gender.text;
     });
   }
 
@@ -62,7 +65,7 @@ class MyCustomFormState extends State<MyCustomForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
-            controller: titleController,
+            controller: email,
             // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -72,7 +75,17 @@ class MyCustomFormState extends State<MyCustomForm> {
             },
           ),
           TextFormField(
-            controller: title2Controller,
+            controller: phone,
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: gender,
             // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {

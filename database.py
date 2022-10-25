@@ -1,15 +1,41 @@
-import pymongo
+import boto3
+from boto3.dynamodb.conditions import Key
 
-class AppDatabase:
-    def __init__(self):
-        try:
-            client = pymongo.MongoClient("mongodb://localhost:27017/")
-            print("Connection Succesful")
-        except: 
-            print("Connection Unsuccessful")
+dynamodb = boto3.client("dynamodb", region_name='us-east-2', aws_access_key_id="AKIAVC5TF2RTHZTX64QZ", aws_secret_access_key="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")
 
-        app_data = client["Bar Rush"]
-        user_data = app_data["Users"]
-        bar_data = app_data["Bars"]
+def add_user(unique_id, name, phone, gender):
+    
+    table = "Users"
+    response = dynamodb.put_item(
+    
+    TableName=table,
+    
+    Item={
+        "Unique ID":{
 
-app = AppDatabase()
+            "S": unique_id
+
+        },
+
+        "Name": {
+
+            "S": name
+        },
+
+        "Phone": {
+
+            "S": phone
+
+        },
+
+        "Gender": {
+
+            "S": gender
+        }
+    }          
+)
+            
+              
+
+    return response
+

@@ -3,15 +3,25 @@ from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.client("dynamodb", region_name='us-east-2', aws_access_key_id="AKIAVC5TF2RTHZTX64QZ", aws_secret_access_key="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")
 
+# Add User
+# ------------------------------------------------------------------------------
 def add_user(unique_id, name, phone, gender):
-    
-    table = "Users"
+    '''
+    Function allowing users to be added to DynamoDB (AWS)
+    Parameters: Unique ID, Name, Phone, Gender.
+    Returns: User added to Users Table.
+
+    '''
+    table = "Users" # Controls which table to add to
+
+    # The process to add a user
     response = dynamodb.put_item(
     
-    TableName=table,
+    TableName=table, # Holds the table name
     
+    # The part being added
     Item={
-        "Unique ID":{
+        "Unique ID":{ 
 
             "S": unique_id
 
@@ -39,3 +49,34 @@ def add_user(unique_id, name, phone, gender):
 
     return response
 
+# ------------------------------------------------------------------------------
+
+# Delete User
+# ------------------------------------------------------------------------------
+def delete_user(unique_id):
+    '''
+    Function allowing users to be deleted.
+    Parameters: Unique ID.
+    Returns: User gets removed from Users table.
+
+    '''
+    table = "Users" # Table to be removed from
+
+    # Way to delete users
+    response = dynamodb.delete_item(
+    
+    TableName=table,
+    
+    Key={ # Unique ID to remove
+        "Unique ID":{
+
+            "S": unique_id
+
+        }
+    }
+)
+            
+              
+
+    return response
+# ------------------------------------------------------------------------------

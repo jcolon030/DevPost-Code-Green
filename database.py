@@ -84,7 +84,6 @@ def get_user(unique_id):
     :return: dict containing data associated with user
     '''
     table = 'Users' # Table being retrieved from
-
     # Operation to get user info
     response = dynamodb.get_item(
         Key={

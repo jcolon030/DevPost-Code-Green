@@ -49,7 +49,8 @@ class _BarListState extends State<BarList> {
 
         final int index = i ~/ 2;
         if (index >= _words.length) {
-          _words.addAll(generateWordPairs().take(10));
+          _words.addAll(generateWordPairs()
+              .take(10)); // Generates random words, replace with bar list
         }
         return _buildRow(_words[index]);
       },

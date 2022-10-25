@@ -1,5 +1,5 @@
 import boto3
-from meta import *
+from meta.meta import *
 from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.client("dynamodb", region_name='us-east-2', aws_access_key_id=key, aws_secret_access_key=secret)

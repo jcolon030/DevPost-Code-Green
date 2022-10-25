@@ -2,7 +2,7 @@ import boto3
 from meta import *
 from boto3.dynamodb.conditions import Key
 
-dynamodb = boto3.client("dynamodb", region_name='us-east-2', aws_access_key_id=key, aws_secret_access_key=secret)
+dynamodb = boto3.client('dynamodb', region_name='us-east-2', aws_access_key_id=key, aws_secret_access_key=secret)
 
 # Add User
 # ------------------------------------------------------------------------------
@@ -15,37 +15,34 @@ def add_user(unique_id, name, phone, gender):
     '''
     table = "Users" # Controls which table to add to
 
-    # The process to add a user
+        # The process to add a user
     response = dynamodb.put_item(
-    
-    TableName=table, # Holds the table name
-    
-    # The part being added
-    Item={
-        "Unique ID":{ 
+        
+        TableName=table, # Holds the table name
+        
+        # The part being added
+        Item={
+            "unique_id":{ 
 
-            "S": unique_id
+                "S": unique_id
 
-        },
+            },
+            "name": {
 
-        "Name": {
+                "S": name
+            },
+            "phone": {
 
-            "S": name
-        },
+                "S": phone
+            },
 
-        "Phone": {
+            "gender": {
 
-            "S": phone
-
-        },
-
-        "Gender": {
-
-            "S": gender
-        }
-    }          
-)
-            
+                "S": gender
+            }
+        }          
+    )
+                
               
 
     return response
@@ -66,18 +63,29 @@ def delete_user(unique_id):
     # Way to delete users
     response = dynamodb.delete_item(
     
-    TableName=table,
+        TableName=table,
     
-    Key={ # Unique ID to remove
-        "Unique ID":{
-
+        Key={ # Unique ID to remove
+            "unique_id":{
             "S": unique_id
-
+            }
         }
-    }
-)
-            
-              
-
+    )
     return response
 # ------------------------------------------------------------------------------
+# Get User Info
+# ------------------------------------------------------------------------------
+def get_user(unique_id):
+    
+    table = 'Users' # Table being retrieved from
+
+    # Operation to get user info
+    response = dynamodb.get_item(
+        Key={
+            'unique_id': {
+                'S': unique_id,
+            }
+        },
+        TableName=table,
+    )
+    return response

@@ -1,7 +1,8 @@
 import boto3
+from meta import *
 from boto3.dynamodb.conditions import Key
 
-dynamodb = boto3.client("dynamodb", region_name='us-east-2', aws_access_key_id="AKIAVC5TF2RTHZTX64QZ", aws_secret_access_key="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")
+dynamodb = boto3.client("dynamodb", region_name='us-east-2', aws_access_key_id=key, aws_secret_access_key=secret)
 
 # Add User
 # ------------------------------------------------------------------------------

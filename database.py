@@ -8,10 +8,12 @@ dynamodb = boto3.client('dynamodb', region_name='us-east-2', aws_access_key_id=k
 # ------------------------------------------------------------------------------
 def add_user(unique_id, name, phone, gender):
     '''
-    Function allowing users to be added to DynamoDB (AWS)
-    Parameters: Unique ID, Name, Phone, Gender.
-    Returns: User added to Users Table.
-
+    Adds user to Users table with their unique id and sign-up info
+    :param unique_id: unique id associated with user
+    :param name: first name of user
+    :param phone: phone number of user
+    :param gender: gender of user
+    :return:  dict containing capacity united used and other operation info
     '''
     table = "Users" # Controls which table to add to
 
@@ -53,10 +55,9 @@ def add_user(unique_id, name, phone, gender):
 # ------------------------------------------------------------------------------
 def delete_user(unique_id):
     '''
-    Function allowing users to be deleted.
-    Parameters: Unique ID.
-    Returns: User gets removed from Users table.
-
+    Deletes a user from table based on their unique id
+    :param unique_id: unique id associated with user
+    :return: dict containing capacity united used and other deletion info
     '''
     table = "Users" # Table to be removed from
 
@@ -72,11 +73,16 @@ def delete_user(unique_id):
         }
     )
     return response
+
 # ------------------------------------------------------------------------------
 # Get User Info
 # ------------------------------------------------------------------------------
 def get_user(unique_id):
-    
+    '''
+    Function gets data associated with a user
+    :param unique_id: unique_id of user
+    :return: dict containing data associated with user
+    '''
     table = 'Users' # Table being retrieved from
 
     # Operation to get user info

@@ -1,67 +1,105 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const appTitle = 'Bar Push';
+
     return MaterialApp(
-      title: 'Welcome to Bar Push',
-      home: BarList(),
+      title: appTitle,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text(appTitle),
+        ),
+        body: const MyCustomForm(),
+      ),
     );
   }
 }
 
-class BarList extends StatefulWidget {
-  const BarList({super.key});
+// Create a Form widget.
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
 
   @override
-  State<BarList> createState() => _BarListState();
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
 }
 
-class _BarListState extends State<BarList> {
-  final _words = <WordPair>[];
-  final _biggerFont = const TextStyle(fontSize: 25);
+// Create a corresponding State class.
+// This class holds data related to the form.
+class MyCustomFormState extends State<MyCustomForm> {
+  // Create a global key that uniquely identifies the Form widget
+  // and allows validation of the form.
+  //
+  // Note: This is a GlobalKey<FormState>,
+  // not a GlobalKey<MyCustomFormState>.
+  final titleController = TextEditingController();
+  final title2Controller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  String data = "";
+  String data2 = "";
+
+  void _getText() {
+    setState(() {
+      data = titleController.text;
+      data2 = title2Controller.text;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Bar Push')),
-      body: _buildBarList(),
+    // Build a Form widget using the _formKey created above.
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextFormField(
+            controller: titleController,
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: title2Controller,
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                _getText();
+                // Validate returns true if the form is valid, or false otherwise.
+                if (_formKey.currentState!.validate()) {
+                  // If the form is valid, display a snackbar. In the real world,
+                  // you'd often call a server or save the information in a database.
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Processing Data')),
+                  );
+                }
+              },
+              child: const Text('Submit'),
+            ),
+          ),
+        ],
+      ),
     );
-  }
-
-  Widget _buildBarList() {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemBuilder: (BuildContext _context, int i) {
-        if (i.isOdd) {
-          return Divider();
-        }
-
-        final int index = i ~/ 2;
-        if (index >= _words.length) {
-          _words.addAll(generateWordPairs()
-              .take(10)); // Generates random words, replace with bar list
-        }
-        return _buildRow(_words[index]);
-      },
-    );
-  }
-
-  Widget _buildRow(WordPair pair) {
-    return ListTile(
-        title: Text(
-      pair.asPascalCase,
-      style: _biggerFont,
-    ));
   }
 }

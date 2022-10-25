@@ -6,7 +6,7 @@ dynamodb = boto3.client('dynamodb', region_name='us-east-2', aws_access_key_id=k
 
 # Add User
 # ------------------------------------------------------------------------------
-def add_user(unique_id, name, phone, gender):
+def add_user(email, name, phone, gender):
     '''
     Adds user to Users table with their unique id and sign-up info
     :param unique_id: unique id associated with user
@@ -24,9 +24,9 @@ def add_user(unique_id, name, phone, gender):
         
         # The part being added
         Item={
-            "unique_id":{ 
+            "email":{ 
 
-                "S": unique_id
+                "S": email
 
             },
             "name": {
@@ -53,7 +53,7 @@ def add_user(unique_id, name, phone, gender):
 
 # Delete User
 # ------------------------------------------------------------------------------
-def delete_user(unique_id):
+def delete_user(email):
     '''
     Deletes a user from table based on their unique id
     :param unique_id: unique id associated with user
@@ -67,8 +67,8 @@ def delete_user(unique_id):
         TableName=table,
     
         Key={ # Unique ID to remove
-            "unique_id":{
-            "S": unique_id
+            "email":{
+            "S": email
             }
         }
     )
@@ -77,7 +77,7 @@ def delete_user(unique_id):
 # ------------------------------------------------------------------------------
 # Get User Info
 # ------------------------------------------------------------------------------
-def get_user(unique_id):
+def get_user(email):
     '''
     Function gets data associated with a user
     :param unique_id: unique_id of user
@@ -87,10 +87,11 @@ def get_user(unique_id):
     # Operation to get user info
     response = dynamodb.get_item(
         Key={
-            'unique_id': {
-                'S': unique_id,
+            'email': {
+                'S': email,
             }
         },
         TableName=table,
     )
     return response
+

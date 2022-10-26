@@ -2,50 +2,49 @@ import boto3
 from meta.meta import *
 from boto3.dynamodb.conditions import Key
 
-dynamodb = boto3.client("dynamodb", region_name='us-east-2', aws_access_key_id=key, aws_secret_access_key=secret)
+dynamodb = boto3.client('dynamodb', region_name='us-east-2', aws_access_key_id=key, aws_secret_access_key=secret)
 
 # Add User
 # ------------------------------------------------------------------------------
-def add_user(unique_id, name, phone, gender):
+def add_user(email, name, phone, gender):
     '''
-    Function allowing users to be added to DynamoDB (AWS)
-    Parameters: Unique ID, Name, Phone, Gender.
-    Returns: User added to Users Table.
-
+    Adds user to Users table with their unique id and sign-up info
+    :param unique_id: unique id associated with user
+    :param name: first name of user
+    :param phone: phone number of user
+    :param gender: gender of user
+    :return:  dict containing capacity united used and other operation info
     '''
     table = "Users" # Controls which table to add to
 
-    # The process to add a user
+        # The process to add a user
     response = dynamodb.put_item(
-    
-    TableName=table, # Holds the table name
-    
-    # The part being added
-    Item={
-        "Unique ID":{ 
+        
+        TableName=table, # Holds the table name
+        
+        # The part being added
+        Item={
+            "email":{ 
 
-            "S": unique_id
+                "S": email
 
-        },
+            },
+            "name": {
 
-        "Name": {
+                "S": name
+            },
+            "phone": {
 
-            "S": name
-        },
+                "S": phone
+            },
 
-        "Phone": {
+            "gender": {
 
-            "S": phone
-
-        },
-
-        "Gender": {
-
-            "S": gender
-        }
-    }          
-)
-            
+                "S": gender
+            }
+        }          
+    )
+                
               
 
     return response
@@ -54,30 +53,45 @@ def add_user(unique_id, name, phone, gender):
 
 # Delete User
 # ------------------------------------------------------------------------------
-def delete_user(unique_id):
+def delete_user(email):
     '''
-    Function allowing users to be deleted.
-    Parameters: Unique ID.
-    Returns: User gets removed from Users table.
-
+    Deletes a user from table based on their unique id
+    :param unique_id: unique id associated with user
+    :return: dict containing capacity united used and other deletion info
     '''
     table = "Users" # Table to be removed from
 
     # Way to delete users
     response = dynamodb.delete_item(
     
-    TableName=table,
+        TableName=table,
     
-    Key={ # Unique ID to remove
-        "Unique ID":{
-
-            "S": unique_id
-
+        Key={ # Unique ID to remove
+            "email":{
+            "S": email
+            }
         }
-    }
-)
-            
-              
-
+    )
     return response
+
 # ------------------------------------------------------------------------------
+# Get User Info
+# ------------------------------------------------------------------------------
+def get_user(email):
+    '''
+    Function gets data associated with a user
+    :param unique_id: unique_id of user
+    :return: dict containing data associated with user
+    '''
+    table = 'Users' # Table being retrieved from
+    # Operation to get user info
+    response = dynamodb.get_item(
+        Key={
+            'email': {
+                'S': email,
+            }
+        },
+        TableName=table,
+    )
+    return response
+

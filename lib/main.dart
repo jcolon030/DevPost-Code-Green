@@ -50,7 +50,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
 
-  DatabaseReference database = FirebaseDatabase.instance.ref();
+  DatabaseReference database = FirebaseDatabase.instance.ref("Users");
 
   final email = TextEditingController();
   final name = TextEditingController();
@@ -73,7 +73,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 
   void submit_user() async {
-    await database.set({
+    await database.push().set({
       "email": user_email,
       "name": user_name,
       "phone": user_phone,

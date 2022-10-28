@@ -1,6 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -39,20 +46,35 @@ class MyCustomFormState extends State<MyCustomForm> {
   //
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
+
+  DatabaseReference database = FirebaseDatabase.instance.ref();
+
   final email = TextEditingController();
+  final name = TextEditingController();
   final phone = TextEditingController();
   final gender = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   String user_email = "";
+  String user_name = "";
   String user_phone = "";
   String user_gender = "";
 
   void _getText() {
     setState(() {
       user_email = email.text;
+      user_name = name.text;
       user_phone = phone.text;
       user_gender = gender.text;
+    });
+  }
+
+  void submit_user() async {
+    await database.set({
+      "email": user_email,
+      "name": user_name,
+      "phone": user_phone,
+      "gender": user_gender
     });
   }
 
@@ -66,6 +88,16 @@ class MyCustomFormState extends State<MyCustomForm> {
         children: [
           TextFormField(
             controller: email,
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: name,
             // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -99,6 +131,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: ElevatedButton(
               onPressed: () {
                 _getText();
+                submit_user();
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,

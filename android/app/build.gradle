@@ -51,7 +51,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        minSdkVersion 19
+        minSdkVersion 20
+        applicationId "com.example.google_maps_in_flutter"
     }
 
     buildTypes {

@@ -72,6 +72,8 @@ class MyCustomFormState extends State<MyCustomForm> {
     });
   }
 
+  void get_user_cords() {}
+
   void submit_user() async {
     await database.push().set({
       "email": user_email,

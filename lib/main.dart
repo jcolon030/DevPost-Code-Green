@@ -3,6 +3,7 @@ import 'firebase_options.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -137,6 +138,8 @@ class MyCustomFormState extends State<MyCustomForm> {
               onPressed: () {
                 _getText();
                 submit_user();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MyApp2()));
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,

@@ -67,8 +67,8 @@ class MyCustomFormState extends State<MyCustomForm> {
           centerTitle: true,
           title: const Text('Bar Push'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        body:  Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Form(
@@ -76,16 +76,25 @@ class MyCustomFormState extends State<MyCustomForm> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: email,
-                    // The validator receives the text that the user has entered.
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+                    decoration: const InputDecoration(
+                       border: OutlineInputBorder(),
+                       labelText: 'Enter your email',
+                    ),
+                      controller: email,
+                      // The validator receives the text that the user has entered.
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
                   ),
+                  SizedBox(height: 10),
                   TextFormField(
+                    decoration: const InputDecoration(
+                       border: OutlineInputBorder(),
+                       labelText: 'Enter your name',
+                    ),
                     controller: name,
                     // The validator receives the text that the user has entered.
                     validator: (value) {
@@ -95,7 +104,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 10),
                   TextFormField(
+                    decoration: const InputDecoration(
+                       border: OutlineInputBorder(),
+                       labelText: 'Enter your phone number',
+                    ),
                     controller: phone,
                     // The validator receives the text that the user has entered.
                     validator: (value) {
@@ -105,7 +119,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 10),
                   TextFormField(
+                    decoration: const InputDecoration(
+                       border: OutlineInputBorder(),
+                       labelText: 'Enter your gender',
+                    ),
                     controller: gender,
                     // The validator receives the text that the user has entered.
                     validator: (value) {

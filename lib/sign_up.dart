@@ -75,7 +75,9 @@ class MyCustomFormState extends State<MyCustomForm> {
               key: _formKey,
               child: Column(
                 children: [
-                  TextFormField(
+                  Container(
+                  margin: EdgeInsets.only(top: 250),
+                  child: TextFormField(
                     decoration: const InputDecoration(
                        border: OutlineInputBorder(),
                        labelText: 'Enter your email',
@@ -88,9 +90,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                         }
                         return null;
                       },
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
+                  )),
+                  Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: TextFormField(
                     decoration: const InputDecoration(
                        border: OutlineInputBorder(),
                        labelText: 'Enter your name',
@@ -103,9 +106,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                       }
                       return null;
                     },
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
+                  )),
+                  Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: TextFormField(
                     decoration: const InputDecoration(
                        border: OutlineInputBorder(),
                        labelText: 'Enter your phone number',
@@ -118,9 +122,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                       }
                       return null;
                     },
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
+                  )),
+                  Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: TextFormField(
                     decoration: const InputDecoration(
                        border: OutlineInputBorder(),
                        labelText: 'Enter your gender',
@@ -133,11 +138,13 @@ class MyCustomFormState extends State<MyCustomForm> {
                       }
                       return null;
                     },
-                  ),
+                  )),
                 ],
               ),
             ),
-            ElevatedButton(
+            Container(
+            margin:EdgeInsets.only(top: 15),
+            child: ElevatedButton(
               onPressed: () {
                 _getText();
                 submit_user();
@@ -152,8 +159,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                   );
                 }
               },
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(90, 40)),
               child: const Text('Submit'),
-            )
+            ))
           ],
         ));
   }

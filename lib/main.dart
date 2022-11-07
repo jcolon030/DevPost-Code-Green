@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'main_page.dart';
 import "sign_up.dart";
+import 'package:location/location.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final auth = FirebaseAuth.instanceFor(
       app: Firebase.app(), persistence: Persistence.NONE);
+
   runApp(MyApp());
 }
 
@@ -20,6 +22,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const appTitle = 'Bar Push';
+    String location = Location().getLocation().toString();
+    Future<LocationData> loc = Location().getLocation();
+    print("HEREEEEEEEEEEEEEEE" + location);
 
     return MaterialApp(
         title: appTitle,

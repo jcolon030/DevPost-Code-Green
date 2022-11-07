@@ -60,23 +60,29 @@ class MyCustomFormState extends State<MyCustomForm> {
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
-
+    
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           centerTitle: true,
           title: const Text('Bar Push'),
         ),
-        body:  Column(
+        body:  
+          Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Center(
+                child: Align(
+                  alignment: Alignment(0.0,-0.5),
+                  child: Image(image: ResizeImage(NetworkImage('https://cdn.discordapp.com/attachments/1030658701855576157/1038612467812679760/beer.jpeg'), width: 120, height: 100)),
+              )),
             Form(
               key: _formKey,
               child: Column(
                 children: [
                   Container(
-                  margin: EdgeInsets.only(top: 250),
+                  margin: EdgeInsets.only(top: 100),
                   child: TextFormField(
                     decoration: const InputDecoration(
                        border: OutlineInputBorder(),
@@ -143,7 +149,6 @@ class MyCustomFormState extends State<MyCustomForm> {
               ),
             ),
             Container(
-            margin:EdgeInsets.only(top: 15),
             child: ElevatedButton(
               onPressed: () {
                 _getText();

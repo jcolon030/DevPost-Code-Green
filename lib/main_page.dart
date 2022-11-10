@@ -16,7 +16,6 @@ class MyApp2 extends StatefulWidget {
 class _MyAppState extends State<MyApp2> {
   late GoogleMapController mapController;
   late var loc = _initLocationService();
-
   LatLng _center = LatLng(45.1123, -122.677433);
 
   void _onMapCreated(GoogleMapController controller) {
@@ -68,7 +67,9 @@ class _MyAppState extends State<MyApp2> {
         "______________________________________________________________________________________$_center");
 
     print(
-        "___________________________________________________________________________________________${loc.latitude} ${loc.longitude}");
+        "______________________________________________________________________________________${loc.latitude} ${loc.longitude}");
+    print(
+        "______________________________________________________________________________________${_center}");
     return loc;
   }
 }

@@ -1,5 +1,8 @@
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'dart:ui';
 
 void main() => runApp(const MyApp2());
 
@@ -12,11 +15,15 @@ class MyApp2 extends StatefulWidget {
 
 class _MyAppState extends State<MyApp2> {
   late GoogleMapController mapController;
+  late var loc = _initLocationService();
 
-  final LatLng _center = const LatLng(42.7370, -84.4839);
+  LatLng _center = LatLng(45.1123, -122.677433);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+    _initLocationService().then((value) {
+      var location = value;
+    });
   }
 
   @override
@@ -36,5 +43,32 @@ class _MyAppState extends State<MyApp2> {
         ),
       ),
     );
+  }
+
+  Future _initLocationService() async {
+    var location = Location();
+
+    if (!await location.serviceEnabled()) {
+      if (!await location.requestService()) {
+        return;
+      }
+    }
+
+    var permission = await location.hasPermission();
+    if (permission == PermissionStatus.denied) {
+      permission = await location.requestPermission();
+      if (permission != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    var loc = await location.getLocation();
+    _center = LatLng(loc.latitude!.toDouble(), loc.longitude!.toDouble());
+    print(
+        "______________________________________________________________________________________$_center");
+
+    print(
+        "___________________________________________________________________________________________${loc.latitude} ${loc.longitude}");
+    return loc;
   }
 }

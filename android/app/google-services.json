@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "671486151",
+    "project_id": "bar-push",
+    "storage_bucket": "bar-push.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671486151:android:233b9e8b83da0d0bbceee2",
+        "android_client_info": {
+          "package_name": "com.example.bar_push"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671486151-64f345je7iufa2718loa432cc1nn4ame.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpGJwSn5mkVUeyN7OhCgBll14hv8GUEA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671486151-64f345je7iufa2718loa432cc1nn4ame.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "671486151-kacsl0vjq4j8drke2sob17pt1b2sbbjk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.barPush"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

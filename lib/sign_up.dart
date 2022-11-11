@@ -1,8 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'main_page.dart';
 
 // Create a Form widget.
@@ -67,9 +66,8 @@ class MyCustomFormState extends State<MyCustomForm> {
           centerTitle: true,
           title: const Text('Bar Push'),
         ),
-        body:  
-          Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Center(
@@ -81,29 +79,17 @@ class MyCustomFormState extends State<MyCustomForm> {
               key: _formKey,
               child: Column(
                 children: [
-                  Container(
-                  margin: EdgeInsets.only(top: 100),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                       border: OutlineInputBorder(),
-                       labelText: 'Enter your email',
-                    ),
-                      controller: email,
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                  )),
-                  Container(
-                  margin: EdgeInsets.only(top: 15),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                       border: OutlineInputBorder(),
-                       labelText: 'Enter your name',
-                    ),
+                  TextFormField(
+                    controller: email,
+                    // The validator receives the text that the user has entered.
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
                     controller: name,
                     // The validator receives the text that the user has entered.
                     validator: (value) {
@@ -112,14 +98,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                       }
                       return null;
                     },
-                  )),
-                  Container(
-                  margin: EdgeInsets.only(top: 15),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                       border: OutlineInputBorder(),
-                       labelText: 'Enter your phone number',
-                    ),
+                  ),
+                  TextFormField(
                     controller: phone,
                     // The validator receives the text that the user has entered.
                     validator: (value) {
@@ -128,14 +108,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                       }
                       return null;
                     },
-                  )),
-                  Container(
-                  margin: EdgeInsets.only(top: 15),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                       border: OutlineInputBorder(),
-                       labelText: 'Enter your gender',
-                    ),
+                  ),
+                  TextFormField(
                     controller: gender,
                     // The validator receives the text that the user has entered.
                     validator: (value) {
@@ -144,12 +118,11 @@ class MyCustomFormState extends State<MyCustomForm> {
                       }
                       return null;
                     },
-                  )),
+                  ),
                 ],
               ),
             ),
-            Container(
-            child: ElevatedButton(
+            ElevatedButton(
               onPressed: () {
                 _getText();
                 submit_user();
@@ -164,10 +137,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                   );
                 }
               },
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(90, 40)),
               child: const Text('Submit'),
-            ))
+            )
           ],
         ));
   }

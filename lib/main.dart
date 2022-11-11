@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'main_page.dart';
 import "sign_up.dart";
 import 'package:location/location.dart';
 
@@ -13,7 +11,7 @@ void main() async {
   final auth = FirebaseAuth.instanceFor(
       app: Firebase.app(), persistence: Persistence.NONE);
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,18 +22,17 @@ class MyApp extends StatelessWidget {
     const appTitle = 'Bar Push';
     String location = Location().getLocation().toString();
     Future<LocationData> loc = Location().getLocation();
-    print("HEREEEEEEEEEEEEEEE" + location);
 
     return MaterialApp(
         title: appTitle,
         theme: ThemeData(
-            primaryColor: Color.fromARGB(255, 51, 121, 54),
+            primaryColor: const Color.fromARGB(255, 51, 121, 54),
             primarySwatch: Colors.green,
-            scaffoldBackgroundColor: Color.fromARGB(255, 247, 246, 246),
+            scaffoldBackgroundColor: const Color.fromARGB(255, 247, 246, 246),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20))))),
-        home: MyCustomForm());
+        home: const MyCustomForm());
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'dart:ui';
+import 'package:flutter/services.dart';
 
 void main() => runApp(const MyApp2());
 
@@ -16,10 +17,19 @@ class MyApp2 extends StatefulWidget {
 class _MyAppState extends State<MyApp2> {
   late GoogleMapController mapController;
   late var loc = _initLocationService();
-  LatLng _center = LatLng(45.1123, -122.677433);
+  LatLng _center = LatLng(42.735780, -84.483792);
+  late LatLng ricks = LatLng(42.735778, -84.483726);
+
+  Set<Marker> markers = {
+    const Marker(
+      markerId: MarkerId('Ricks'),
+      position: LatLng(42.735778, -84.483726),
+    )
+  };
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+
     _initLocationService().then((value) {
       var location = value;
     });
@@ -34,11 +44,13 @@ class _MyAppState extends State<MyApp2> {
           backgroundColor: Colors.green[700],
         ),
         body: GoogleMap(
+          mapType: MapType.satellite,
           onMapCreated: _onMapCreated,
           initialCameraPosition: CameraPosition(
             target: _center,
-            zoom: 11.0,
+            zoom: 17.0,
           ),
+          markers: markers,
         ),
       ),
     );
@@ -63,13 +75,13 @@ class _MyAppState extends State<MyApp2> {
 
     var loc = await location.getLocation();
     _center = LatLng(loc.latitude!.toDouble(), loc.longitude!.toDouble());
+
     print(
         "______________________________________________________________________________________$_center");
 
     print(
         "______________________________________________________________________________________${loc.latitude} ${loc.longitude}");
-    print(
-        "______________________________________________________________________________________${_center}");
+
     return loc;
   }
 }
